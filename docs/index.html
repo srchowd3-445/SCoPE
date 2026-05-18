@@ -29,6 +29,10 @@
       <h2>Introduction</h2>
       <p>Many clinical trial questions are neither pure retrieval nor standard text-to-SQL. In this setting, the answer must be derived from row evidence rather than projected from an explicit schema field. SCoPE addresses this by separating three failure-prone decisions: row grounding, source-field identification, and transformation logic.</p>
       <p><strong>Research question:</strong> can explicit planner-based decomposition improve grounded row-level reasoning over partially observed clinical-trial tables?</p>
+      <figure class="paper-figure">
+        <img src="./assets/diagram1.png" alt="Hybrid reasoning exemplar for SCoPE" />
+        <figcaption>Sample hybrid reasoning question requiring semantic understanding of regimen structure and extraction of held-out target information.</figcaption>
+      </figure>
     </section>
 
     <section>
@@ -39,6 +43,10 @@
         <li><strong>Executor (final generation):</strong> apply the plan and return row-aligned predictions.</li>
       </ol>
       <p>This explicit planning interface improves interpretability and reduces ambiguity compared to single-step generation.</p>
+      <figure class="paper-figure">
+        <img src="./assets/diagram2.png" alt="SCoPE planner-executor pipeline" />
+        <figcaption>SCoPE pipeline: row selection, structured planning, and final row-aligned execution over visible evidence columns.</figcaption>
+      </figure>
     </section>
 
     <section>
