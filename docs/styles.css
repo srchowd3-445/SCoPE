@@ -1,0 +1,116 @@
+:root {
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --ink: #12202f;
+  --muted: #4b5f73;
+  --brand: #0e7490;
+  --line: #d9e1ea;
+  --best: #e8f7e8;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top right, #e9f4ff 0%, var(--bg) 35%, #f8fafc 100%);
+  color: var(--ink);
+  font: 16px/1.65 "Segoe UI", "Avenir Next", "Helvetica Neue", sans-serif;
+}
+
+.wrap {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+}
+
+.hero {
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(120deg, #ecfeff 0%, #eff6ff 50%, #f5f3ff 100%);
+  padding: 3rem 0 2rem;
+}
+
+.kicker {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin: 0 0 0.6rem;
+}
+
+h1 {
+  margin: 0;
+  line-height: 1.2;
+  font-size: clamp(1.6rem, 2.6vw, 2.5rem);
+}
+
+.subtitle, .authors, .affils {
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+}
+
+main { padding: 2rem 0 3rem; }
+section { margin: 0 0 1.8rem; }
+
+h2 {
+  margin: 0 0 0.55rem;
+  font-size: 1.28rem;
+}
+
+h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.04rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.table-wrap.narrow { max-width: 620px; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+
+th, td {
+  border: 1px solid var(--line);
+  padding: 0.55rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #f1f5f9;
+  font-weight: 700;
+}
+
+tr.best td {
+  background: var(--best);
+  font-weight: 700;
+}
+
+.note {
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+
+@media (max-width: 900px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}

@@ -41,3 +41,22 @@ python3 methodv2/run_question_table_copy_llm_naive.py \
   --run_name question_table_copy_llm_naive_local \
   --limit 10
 ```
+
+## GitHub Pages
+
+A project page is scaffolded in `docs/`:
+
+- `docs/index.html`
+- `docs/styles.css`
+
+Deployment is automated with `.github/workflows/pages.yml`.
+
+After pushing to GitHub:
+
+1. Open repository `Settings` -> `Pages`
+2. Under `Build and deployment`, set `Source` to `GitHub Actions`
+3. Push to `main` (or `master`) to trigger deployment
+
+The site will publish at:
+
+`https://<your-username>.github.io/<repo-name>/`
