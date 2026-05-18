@@ -43,7 +43,7 @@ h1 {
   font-size: clamp(1.6rem, 2.6vw, 2.5rem);
 }
 
-.subtitle, .authors, .affils {
+.subtitle, .authors, .affils, .chips {
   margin: 0.8rem 0 0;
   color: var(--muted);
 }
@@ -112,6 +112,22 @@ tr.best td {
 .note {
   color: var(--muted);
   margin-top: 0.6rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.chips span {
+  background: #e2eefc;
+  border: 1px solid #c2d6f0;
+  color: #17375f;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  padding: 0.16rem 0.62rem;
+  font-weight: 600;
 }
 
 @media (max-width: 900px) {

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SCoPE: Planning for Hybrid Querying over Clinical Trial Data</title>
-  <meta name="description" content="Project page for SCoPE, a planner-based framework for clinical trial table reasoning." />
+  <meta name="description" content="Full project page for SCoPE, a planner-based framework for clinical trial table reasoning." />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -12,30 +12,38 @@
     <div class="wrap">
       <p class="kicker">ACL Preprint</p>
       <h1>SCoPE: Planning for Hybrid Querying over Clinical Trial Data</h1>
-      <p class="subtitle">A planner-executor framework for grounded row-level reasoning over partially observed oncology trial tables.</p>
+      <p class="subtitle">Structured Clinical hybrid Planning for Evidence retrieval in clinical trials</p>
       <p class="authors">Suparno Roy Chowdhury, Manan Roy Choudhury, Tejas Anvekar, Muhammad Ali Khan, Kaneez Zahra Rubab Khakwani, Mohamad Bassam Sonbol, Irbaz Bin Riaz, Vivek Gupta</p>
       <p class="affils">Arizona State University, Mayo Clinic</p>
+      <p class="chips"><span>1500 questions</span><span>31 target fields</span><span>159 x 32 table</span></p>
     </div>
   </header>
 
   <main class="wrap">
     <section>
       <h2>Abstract</h2>
-      <p>We study clinical trial table reasoning, where answers must be inferred from visible evidence rather than copied from explicit cells. SCoPE decomposes reasoning into row selection, structured planning, and execution, making source field selection and transformation constraints explicit before final answer generation. On 1,500 oncology hybrid-reasoning questions, SCoPE improves grounded performance over direct prompting and stronger tabular baselines while retaining a favorable accuracy-efficiency tradeoff.</p>
+      <p>We study clinical trial table reasoning, where answers are not directly stored in visible cells and must be inferred from semantic understanding through normalization, classification, extraction, and lightweight domain reasoning. We introduce SCoPE, a multi-LLM planner-based framework that decomposes the problem into row selection, structured planning, and execution. Across 1,500 hybrid reasoning questions over oncology clinical-trial tables, explicit planning improves grounded row-level reasoning accuracy over direct prompting and stronger tabular baselines, while maintaining a favorable accuracy-efficiency tradeoff.</p>
     </section>
 
     <section>
-      <h2>Problem Setting</h2>
-      <p>Input is a question and a visible table copy with hidden target field(s). Output is row-aligned predictions for relevant rows, derived from visible evidence through normalization, extraction, classification, or lightweight domain reasoning.</p>
+      <h2>Introduction</h2>
+      <p>Many clinical trial questions are neither pure retrieval nor standard text-to-SQL. In this setting, the answer must be derived from row evidence rather than projected from an explicit schema field. SCoPE addresses this by separating three failure-prone decisions: row grounding, source-field identification, and transformation logic.</p>
+      <p><strong>Research question:</strong> can explicit planner-based decomposition improve grounded row-level reasoning over partially observed clinical-trial tables?</p>
+    </section>
+
+    <section>
+      <h2>Method: SCoPE System and Flow</h2>
       <ol>
-        <li>Executor selects candidate rows.</li>
-        <li>Planner predicts a structured plan: source column, relevant columns, reasoning rules, output constraints.</li>
-        <li>Executor applies the plan and returns aligned row-level outputs.</li>
+        <li><strong>Executor (row selection):</strong> identify candidate relevant rows from the visible table.</li>
+        <li><strong>Planner (structured reasoning):</strong> predict source field, relevant columns, reasoning rules, and output constraints.</li>
+        <li><strong>Executor (final generation):</strong> apply the plan and return row-aligned predictions.</li>
       </ol>
+      <p>This explicit planning interface improves interpretability and reduces ambiguity compared to single-step generation.</p>
     </section>
 
     <section>
-      <h2>Dataset Snapshot</h2>
+      <h2>Dataset</h2>
+      <p>The benchmark contains 1,500 programmatically-augmented hybrid reasoning questions constructed from an expert-authored seed set of 500 questions over oncology clinical-trial data.</p>
       <div class="grid-2">
         <div class="card">
           <h3>Clinical-Trial Table Statistics</h3>
@@ -59,10 +67,10 @@
               <tr><td>Total questions</td><td>1,500</td></tr>
               <tr><td>Mean question length</td><td>21.2 tokens</td></tr>
               <tr><td>Target fields</td><td>31</td></tr>
-              <tr><td>String answers</td><td>957</td></tr>
-              <tr><td>List answers</td><td>241</td></tr>
-              <tr><td>Boolean answers</td><td>224</td></tr>
-              <tr><td>Null-only answers</td><td>78</td></tr>
+              <tr><td>String</td><td>957</td></tr>
+              <tr><td>List</td><td>241</td></tr>
+              <tr><td>Boolean</td><td>224</td></tr>
+              <tr><td>Null-only</td><td>78</td></tr>
             </tbody>
           </table>
         </div>
@@ -70,8 +78,14 @@
     </section>
 
     <section>
+      <h2>Experimental Setup</h2>
+      <p><strong>Baselines:</strong> Zero-shot, Few-shot, CoT, BlendSQL, EHRAgent, TableGPT2.</p>
+      <p><strong>Backbones:</strong> Qwen3-30B-A3B-Instruct-2507, gpt-oss-20b, Llama-3.3-70B-Instruct.</p>
+      <p><strong>Metrics:</strong> Table F1 (primary), Grounded Row Jaccard (RJ), Grounded Fowlkes-Mallows (FM).</p>
+    </section>
+
+    <section>
       <h2>Main Results</h2>
-      <p>Table F1 is primary; RJ (Row Jaccard) and FM (Fowlkes-Mallows) measure grounded row-level quality.</p>
       <div class="table-wrap">
         <table>
           <thead>
@@ -93,15 +107,16 @@
             <tr><td>Zero Shot</td><td>56.32</td><td>44.95</td><td>62.73</td><td>66.96</td><td>54.55</td><td>72.04</td><td>73.50</td><td>61.05</td><td>77.47</td></tr>
             <tr><td>CoT</td><td>55.37</td><td>44.65</td><td>61.93</td><td>70.87</td><td>57.83</td><td>75.15</td><td>74.17</td><td>61.77</td><td>78.05</td></tr>
             <tr><td>Few-Shot</td><td>54.74</td><td>44.09</td><td>61.48</td><td>69.38</td><td>56.56</td><td>74.05</td><td>73.99</td><td>61.55</td><td>77.85</td></tr>
-            <tr><td>TableGPT2 (single model)</td><td colspan="9">F1 44.03, RJ 33.78, FM 50.81</td></tr>
+            <tr><td>TableGPT2</td><td colspan="9">F1: 44.03, RJ: 33.78, FM: 50.81</td></tr>
             <tr class="best"><td>SCoPE</td><td>63.19</td><td>52.07</td><td>69.45</td><td>70.87</td><td>60.66</td><td>76.12</td><td>74.31</td><td>62.48</td><td>78.27</td></tr>
           </tbody>
         </table>
       </div>
+      <p class="note">SCoPE is strongest overall on GPT-OSS and Qwen3, and tied on Table F1 with stronger grounding metrics on Llama-3.3.</p>
     </section>
 
     <section>
-      <h2>Cross-Model Ablation (SCoPE)</h2>
+      <h2>Cross-Model Ablation</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Executor</th><th>Planner</th><th>F1</th><th>RJ</th><th>FM</th></tr></thead>
@@ -129,17 +144,37 @@
           </tbody>
         </table>
       </div>
-      <p class="note">Takeaway: constrained grounded execution is more reliable than open-ended code synthesis for this hybrid clinical-table reasoning setup.</p>
+      <p class="note">Code-synthesis execution is substantially more brittle than constrained grounded execution.</p>
+    </section>
+
+    <section>
+      <h2>Model Cost-Effectiveness</h2>
+      <p>In the Qwen-based comparison, SCoPE lies on the strongest accuracy-cost frontier: highest Table F1 with moderate planning overhead, substantially better than heavier but less accurate structured baselines.</p>
+    </section>
+
+    <section>
+      <h2>Related Work</h2>
+      <p>Related datasets include MIMIC-III/IV, eICU, i2b2/n2c2, TabFact, and FETAQA. Related methods include Seq2SQL, TaBERT, TAPAS, PAL, ReAct, TableGPT2, BlendSQL, and EHRAgent.</p>
     </section>
 
     <section>
       <h2>Conclusion</h2>
-      <p>SCoPE improves grounded clinical trial table reasoning by explicitly separating row grounding, source-field inference, and transformation logic. It consistently outperforms direct prompting and heavier structured baselines while staying lightweight enough for favorable cost-effectiveness.</p>
+      <p>SCoPE frames clinical trial reasoning as a distinct table understanding setting and demonstrates that lightweight planner-executor decomposition improves grounded row-level inference while preserving efficiency.</p>
     </section>
 
     <section>
-      <h2>Repository</h2>
-      <p>Code and data live in this repository. Add paper PDF, figures, and appendix assets in <code>docs/assets/</code> later if you want a fully media-rich camera-ready page.</p>
+      <h2>Limitations</h2>
+      <p>Current evaluation excludes latest frontier proprietary models, does not include planner/executor fine-tuning specialization, lacks a dedicated memorization analysis, and focuses on a single oncology table setting.</p>
+    </section>
+
+    <section>
+      <h2>Ethics Statement</h2>
+      <p>This system supports trial evidence review, not patient-specific decision-making. It operates on public trial-level data without PHI/PII, and outputs should be expert-reviewed due to possible model errors.</p>
+    </section>
+
+    <section>
+      <h2>Acknowledgment</h2>
+      <p>Supported by the Mayo Clinic and Arizona State University Alliance for Health Care Collaborative Research Seed Grant Program (Award ID: AWD00041508; Sponsor Award ID: ARI-358187).</p>
     </section>
   </main>
 </body>
